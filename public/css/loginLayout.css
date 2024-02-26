@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.auth-layout-wrapper {
+    position: relative;
+    height: 100dvh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* background: linear-gradient(180deg, #DFEDF4 33.14%, #E8F0EC 51.89%, #F7F9F6 76.37%); */
+    background: linear-gradient(
+        180deg,
+        #dfedf4 33.14%,
+        #e8f0ec 51.89%,
+        #f7f9f6 76.37%
+    );
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

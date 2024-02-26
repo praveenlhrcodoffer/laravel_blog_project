@@ -1,0 +1,98 @@
+.navbar-wrapper {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+}
+
+.search-container {
+    position: relative;
+
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.search-bar-container {
+    width: 60%;
+    height: 50%;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    /* overflow: hidden; */
+}
+.search-bar-container form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.search-bar-container input {
+    width: 80%;
+    height: 100%;
+    padding-left: 10px;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    border-left: 2px solid rgba(112, 128, 144, 0.326);
+    border-top: 2px solid rgba(112, 128, 144, 0.326);
+    border-bottom: 2px solid rgba(112, 128, 144, 0.326);
+    border-radius: 5px 0px 0px 5px;
+}
+.search-bar-container button {
+    width: 20%;
+    height: 100%;
+    background-color: #f85077;
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px 5px 5px 0px;
+}
+.login-container {
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 50px;
+}
+
+.login-btn {
+    width: 100px;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(112, 128, 144, 0.341);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-btn p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: black;
+}
+
+.search-results-container {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    top: 75px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
