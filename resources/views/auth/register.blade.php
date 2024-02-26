@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form class="space-y-6" action="#" method="POST">
+                        <form class="space-y-6" action="{{ route('/api/register') }}" method="POST">
                             <div>
                                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Full Name
                                 </label>
@@ -72,8 +72,7 @@
 
                         <p class="mt-10 text-center text-sm text-gray-500">
                             Not yet signed Up?
-                            <a href="{{ route('auth.login') }}"
-                                class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a
+                            <a href="" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a
                                 Sign Up</a>
                         </p>
                     </div>

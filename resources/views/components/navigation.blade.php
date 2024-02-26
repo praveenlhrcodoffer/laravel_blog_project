@@ -17,14 +17,14 @@
     </div>
     <div class="login-container">
         <div class="login-btn">
-            <a href="{{ route('login') }}">
+            <a href="">
                 <p>Login</p>
             </a>
 
 
         </div>
         <div class="login-btn">
-            <a href="{{ route('post.add') }}">
+            <a href="">
                 <p>Add</p>
             </a>
         </div>

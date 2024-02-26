@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,3 +18,16 @@ use App\Http\Controllers\BlogController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+
+// |> Public routes
+
+Route::post('/api/login', [AuthController::class, 'userLogin'])->name('auth.login');
+Route::post('/api/register', [AuthController::class, 'userRegister'])->name('auth.register');
+
+
+
+// |> Protected routes
+Route::post('/api/add', [BLogController::class, 'addBlog'])->name('post.add');
+Route::post('/api/edit', [BLogController::class, 'editBlog'])->name('post.edit');
+Route::post('/api/delete', [BLogController::class, 'deleteBlog'])->name('post.delete');

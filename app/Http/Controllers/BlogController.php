@@ -34,14 +34,22 @@ class BlogController extends Controller
             ->orWhere("title", "like", "%{$query}%")
             ->get();
 
-        // dd($res);
-
 
         return view('blog.index', ['posts' => $res]);
     }
 
     public function addPost()
     {
-        return view('blog.addPost');
+        return view('blog.index');
+    }
+
+    public function editPost()
+    {
+        return view('blog.index');
+    }
+
+    public function deletePost()
+    {
+        return view('blog.index');
     }
 }

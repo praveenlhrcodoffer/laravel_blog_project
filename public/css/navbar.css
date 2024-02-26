@@ -77,6 +77,7 @@
     background-color: rgba(112, 128, 144, 0.341);
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 5px;
 }
 
 .login-btn p {
