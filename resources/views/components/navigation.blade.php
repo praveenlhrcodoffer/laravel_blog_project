@@ -16,18 +16,28 @@
 
     </div>
     <div class="login-container">
-        <div class="login-btn">
-            <a href="">
-                <p>Login</p>
-            </a>
+        @if (!Auth::user())
+            <div class="login-btn">
+                <a href="{{ route('user.login') }}">
+                    Login
+                </a>
+            </div>
+        @else
+            <div class="login-btn">
+                <a href="">
+                    <p>{{ Auth::user()->fullname }}</p>
+                </a>
+            </div>
+        @endif
 
+        @if (Auth::user())
+            <div class="login-btn">
+                <a href="{{ route('auth.logout') }}">
+                    Logout
+                </a>
+            </div>
+        @endif
 
-        </div>
-        <div class="login-btn">
-            <a href="">
-                <p>Add</p>
-            </a>
-        </div>
 
 
 </nav>

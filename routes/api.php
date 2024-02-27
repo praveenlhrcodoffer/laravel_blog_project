@@ -2,32 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\AuthController;
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
-// |> Public routes
-
-Route::post('/api/login', [AuthController::class, 'userLogin'])->name('auth.login');
-Route::post('/api/register', [AuthController::class, 'userRegister'])->name('auth.register');
+use App\Http\Controllers\Api\AuthController;
 
 
 
-// |> Protected routes
-Route::post('/api/add', [BLogController::class, 'addBlog'])->name('post.add');
-Route::post('/api/edit', [BLogController::class, 'editBlog'])->name('post.edit');
-Route::post('/api/delete', [BLogController::class, 'deleteBlog'])->name('post.delete');
+Route::group(['prefix' => '/auth'], function () {
+
+    Route::post('/login', [AuthController::class, 'loginUser'])->name('auth.login');
+    Route::post('/register', [AuthController::class, 'registerUser'])->name('auth.register');
+    // Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/logout', [AuthController::class, 'logoutUser'])->name('auth.logout');
+    //     Route::get('/user', [AuthController::class, 'user']);
+    // });
+});

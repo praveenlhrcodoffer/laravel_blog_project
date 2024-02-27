@@ -43,6 +43,17 @@ class BlogController extends Controller
         return view('blog.index');
     }
 
+    public function showLoginPage()
+    {
+        return view('auth.login');
+    }
+    public function showRegisterPage()
+    {
+        // return '<p>ffs</p>';
+        return view('auth.register');
+    }
+
+
     public function editPost()
     {
         return view('blog.index');
