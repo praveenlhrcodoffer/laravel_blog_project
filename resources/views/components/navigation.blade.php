@@ -28,15 +28,19 @@
                     <p>{{ Auth::user()->fullname }}</p>
                 </a>
             </div>
-        @endif
+            <div class="login-btn">
+                <a href="{{ route('post.showAdd') }}">
+                    Add
+                </a>
+            </div>
 
-        @if (Auth::user())
             <div class="login-btn">
                 <a href="{{ route('auth.logout') }}">
                     Logout
                 </a>
             </div>
         @endif
+
 
 
 

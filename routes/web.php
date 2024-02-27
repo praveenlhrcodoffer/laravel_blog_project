@@ -19,3 +19,5 @@ Route::get('/posts/{id}', [BlogController::class, 'show'])->name('posts.show');
 
 Route::get('/user/login', [BlogController::class, 'showLoginPage'])->name('user.login');
 Route::get('/user/register', [BlogController::class, 'showRegisterPage'])->name('user.register');
+
+Route::get('/post/add', [BlogController::class, 'showAddPostPage'])->name('post.showAdd');

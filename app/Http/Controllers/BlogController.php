@@ -38,9 +38,9 @@ class BlogController extends Controller
         return view('blog.index', ['posts' => $res]);
     }
 
-    public function addPost()
+    public function showAddPostPage()
     {
-        return view('blog.index');
+        return view('blog.addPost');
     }
 
     public function showLoginPage()
