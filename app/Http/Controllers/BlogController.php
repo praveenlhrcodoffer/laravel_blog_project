@@ -86,7 +86,7 @@ class BlogController extends Controller
         $post = Post::find($id);
         $post->delete();
 
-        // return view('blog.index'); //|> this would give error at blog.index page as view blog.index expects to receive some data to be explicitly pass in order to render properly
+        // return view('blog.index'); //|> This would give error at blog.index page as view blog.index expects to receive some data to be explicitly pass in order to render properly
 
         return redirect()->route('posts.home');
     }
