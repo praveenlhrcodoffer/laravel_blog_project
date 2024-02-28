@@ -17,20 +17,32 @@ class AuthController extends Controller
     // register method -------------------------------------------------
     public function registerUser(Request $request)
     {
-
-        $request->validate([
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
             'fullname' => 'required|string',
             'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:5', // Ensure minimum password length
-            'confirm_password' => 'required|string|same:password', // Validation rule to match passwords
+            'password' => 'required|string|min:5', // |>password should be of min length 5
+            'confirm_password' => 'required|string|same:password', //|> Validation rule to match passwords
         ], [
-            'confirm_password.same' => 'The password confirmation does not match.',
+            'confirm_password.same' => 'password and confirm_password should match'
         ]);
 
 
-        if (User::where('email', $request->email)->exists()) {
-            return response()->json(['error' => 'User already exists'], 409); // 409 Conflict
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            dd('Error in registration', $errors->messages());
+            return  response()->json(['errors' => $errors], 400);
         }
+
+        // dd($validator->validate());
+
+
+        //|> Either use unique:email rule in Validator which will check for unqiue value in table
+        //|> or use the below to check if email already exists or not
+        // if (User::where('email', $request->email)->exists()) {
+        //     dd('User already registered');
+        //     return response()->json(['error' => 'User already exists'], 409); // 409 Conflict
+        // }
 
 
         $user = new User([
@@ -42,7 +54,6 @@ class AuthController extends Controller
         if ($user->save()) {
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->plainTextToken;
-
             return redirect()->route('posts.home', ['accessToken' => $token]);
         } else {
             return response()->json(['error' => 'Provide proper details']);
@@ -54,6 +65,7 @@ class AuthController extends Controller
     public function loginUser(Request $request)
     {
 
+        // dd('reched');
         //|> 1. First check if email and password are present.
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -61,12 +73,15 @@ class AuthController extends Controller
         ]);
 
 
-        //|> $validator varible will contain the response. Calling the ->fails() method
+        //|> $validator variable will contain the response. Calling the ->fails() method
         //|> will check if there was any error, if yes then return error
+
+        // dd($validator);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            return  response()->json(['errors' => $errors], 400);
+            dd('request email,password error', $errors);
+            return  response()->json(['errors' => $errors->messages()], 400);
         }
 
 
@@ -80,20 +95,22 @@ class AuthController extends Controller
         // dd(Auth::check(), Auth::attempt(($validatedData)));
 
         if ($authRes) {
-
             return redirect()->route('posts.home');
+        } else {
+            $user = User::where('email', $validatedData['email'])->first();
+            if (!$user) {
+                return response()->json(['error' => 'User not registered yet'], 404);
+            } else {
+                return response()->json(['error' => 'Invalid credentials'], 401);
+            }
         }
     }
 
     public function logoutUser(Request $request)
     {
+        $user = Auth::user();
+
         Auth::logout();
-
-        // $request->session()->invalidate();
-
-        // $request->session()->regenerateToken();
-        $request->user()->tokens()->delete(); // Revoke all user tokens
-        dd(Auth::check());
-        // return redirect()->route('posts.home');
+        return redirect()->route('posts.home');
     }
 }
