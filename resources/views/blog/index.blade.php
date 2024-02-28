@@ -21,7 +21,7 @@
                             <p>{{ $post->title }}</p>
                         </div>
                         <div class="image-container">
-                            <a href="{{ route('posts.show', $post->id) }}">
+                            <a href="{{ route('posts.detail', $post->id) }}">
                                 <img src="{{ $post->image_url }}" alt="Post Image">
                             </a>
                         </div>

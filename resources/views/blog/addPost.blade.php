@@ -29,9 +29,9 @@
         <div class="add-post-form-container">
             <div class="form-wrapper">
 
-
-
-                <form class="max-w-sm mx-auto">
+                <form class="max-w-sm mx-auto" action="{{ route('post.add') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
                     <div>
                         <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title
                         </label>
@@ -52,7 +52,7 @@
 
                     <div class="mt-6">
                         <label class="block text-sm font-medium leading-6 text-gray-900 mb-2">Upload Image</label>
-                        <input
+                        <input name="image"
                             class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             aria-describedby="file_input_help" id="file_input" type="file">
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or
@@ -68,14 +68,14 @@
                             </textarea>
                         </div>
                     </div>
+
+                    <button class="bg-blue-500 mt-5 hover:bg-blue-700 text-white  py-2 px-4 rounded">
+                        Submit
+                    </button>
                 </form>
-
-
-
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

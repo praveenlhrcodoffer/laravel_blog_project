@@ -99,3 +99,49 @@
     margin-right: auto;
     background-color: white;
 }
+
+.user-badge {
+    aspect-ratio: 1/1;
+    height: 50%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(112, 128, 144, 0.341);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 20px;
+}
+
+.add-btn {
+    width: auto;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0080ff;
+    border-radius: 5px;
+    padding: 0px 10px 0px 10px;
+    margin-right: 10px;
+}
+.add-btn a {
+    color: white;
+    font-size: 0.8rem;
+}
+
+.logout-btn {
+    width: auto;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d9140f;
+    border-radius: 5px;
+    margin-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.logout-btn a {
+    color: white;
+    font-size: 0.8rem;
+}

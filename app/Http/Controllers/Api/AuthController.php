@@ -20,9 +20,11 @@ class AuthController extends Controller
 
         $request->validate([
             'fullname' => 'required|string',
-            'email' => 'required|string',
-            'password' => 'required|string',
-            'confirm_password' => 'required|string',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|min:5', // Ensure minimum password length
+            'confirm_password' => 'required|string|same:password', // Validation rule to match passwords
+        ], [
+            'confirm_password.same' => 'The password confirmation does not match.',
         ]);
 
 
@@ -41,11 +43,6 @@ class AuthController extends Controller
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->plainTextToken;
 
-            // return response()->json([
-            //     'message' => 'Successfully created user!',
-            //     'accessToken' => $token,
-            // ], 201);
-
             return redirect()->route('posts.home', ['accessToken' => $token]);
         } else {
             return response()->json(['error' => 'Provide proper details']);
@@ -56,16 +53,6 @@ class AuthController extends Controller
     // login method -------------------------------------------------
     public function loginUser(Request $request)
     {
-
-        // dd($request->all());
-
-
-        // $credentials = $request->validate([
-        //     'email' => 'required|string',
-        //     'password' => 'required|string',
-        // ]);
-
-
 
         //|> 1. First check if email and password are present.
         $validator = Validator::make($request->all(), [
@@ -88,9 +75,12 @@ class AuthController extends Controller
         //|> Now check the authentication.
         $authRes = Auth::attempt($validatedData);
 
+        // dd($validator->validated(), $authRes);
+
+        // dd(Auth::check(), Auth::attempt(($validatedData)));
+
         if ($authRes) {
-            // $request->session()->regenerate();
-            // return response()->json(['msg' => 'Ok -> logged in']);
+
             return redirect()->route('posts.home');
         }
     }
@@ -99,10 +89,11 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
-
-        return redirect()->route('posts.home');
+        // $request->session()->regenerateToken();
+        $request->user()->tokens()->delete(); // Revoke all user tokens
+        dd(Auth::check());
+        // return redirect()->route('posts.home');
     }
 }

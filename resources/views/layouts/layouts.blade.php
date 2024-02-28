@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/show.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/postShow.css') }}">
 </head>
 
 <body>
