@@ -14,15 +14,66 @@
     /* border: 1px solid red; */
     padding-left: 50px;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
 }
-.back-btn-container p {
+
+.back-btn {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.back-btn p {
     color: black;
     letter-spacing: 5px;
     font-size: 0.7rem;
     font-weight: 700;
     height: 100%;
 }
+.edit-btn {
+    height: 40%;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-left: auto;
+}
+.edit-btn p {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.delete-btn {
+    height: 40%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 50px;
+}
+.delete-btn p {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.delete-btn button {
+    background: none;
+    border: none;
+}
+
 .post-detail-inner-page {
     position: relative;
     width: 100%;
@@ -114,6 +165,3 @@
     line-height: 2.5;
     font-weight: 500;
 }
-
-
-

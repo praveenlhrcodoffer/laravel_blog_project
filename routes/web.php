@@ -18,8 +18,10 @@ Route::prefix('user')->group(function () {
     Route::get('/register', [BlogController::class, 'showRegisterPage'])->name('user.register');
 });
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/post/add', [BlogController::class, 'showAddPostPage'])->name('post.showAdd');
-    Route::post('/post/add', [BlogController::class, 'addPost'])->name('post.add');
+    Route::post('/post/add', [BlogController::class, 'addPostToDb'])->name('post.add');
 });
+
+
+Route::delete('/post/delete/{id}', [BlogController::class, 'deletePostFromDb'])->name('post.delete');

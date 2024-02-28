@@ -22,7 +22,11 @@
                         </div>
                         <div class="image-container">
                             <a href="{{ route('posts.detail', $post->id) }}">
-                                <img src="{{ $post->image_url }}" alt="Post Image">
+                                {{-- <img src="{{ $post->image_url }}" alt="Post Image"> --}}
+                                {{-- <img src="" alt="Post Image"> --}}
+                                {{-- <img src="{{ asset('public/storage/' . $post->image_url) }}" alt="Post Image"> --}}
+                                <img src="{{ asset('storage/' . $post->image_url) }}" alt="Post Image">
+
                             </a>
                         </div>
                         <div class="author-container">

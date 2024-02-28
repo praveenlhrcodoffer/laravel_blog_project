@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 
@@ -55,14 +56,23 @@ class BlogController extends Controller
 
     public function addPostToDb(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'title' => 'required|string',
-        //     'author' => 'required|string',
-        //     'content' => 'required|string',
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Define validation rules for the image
-        // ]);
 
-        dd($request->all());
+        $userId  = auth()->id();
+        // $imagePath = $request->file('image')->store('public');
+        $imagePath = $request->file('image')->store('images', 'public');
+
+
+        // dd($imagePath);
+
+        DB::table('posts')->insert([
+            'title' => $request->title,
+            'author' => $request->author,
+            'content' => $request->content,
+            'image_url' => $imagePath,
+            'user_id' => $userId
+        ]);
+
+        return redirect()->route('posts.home');
     }
 
     public function editPost()
@@ -70,8 +80,14 @@ class BlogController extends Controller
         return view('blog.index');
     }
 
-    public function deletePost()
+    public function deletePostFromDb(string $id)
     {
-        return view('blog.index');
+        // dd($id);
+        $post = Post::find($id);
+        $post->delete();
+
+        // return view('blog.index'); //|> this would give error at blog.index page as view blog.index expects to receive some data to be explicitly pass in order to render properly
+
+        return redirect()->route('posts.home');
     }
 }
