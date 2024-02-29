@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use index;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -92,9 +93,11 @@ class AuthController extends Controller
             if (!$user) {
                 return response()->json(['error' => 'User not registered yet'], 404);
                 // return redirect('user/login')->withErrors($validator);
+
             } else {
-                // return redirect('user/login')->withErrors($validator);
-                return response()->json(['error' => 'Invalid credentials'], 401);
+                return redirect('user/login')->withErrors($validator);
+                // return $validator->errors();
+                // return response()->json(['error' => 'Invalid credentials'], 401);
             }
         }
     }
