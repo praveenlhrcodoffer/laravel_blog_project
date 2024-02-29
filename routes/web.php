@@ -6,8 +6,7 @@ use App\Http\Controllers\BlogController;
 use  App\Http\Controllers\AuthController;
 use  App\Http\Controllers\LoginController;
 use App\Http\Controllers\Api\UserController;
-
-
+use Illuminate\Http\Request;
 
 //|> Routes for views
 Route::get('/', [BlogController::class, 'index'])->name('posts.home');
@@ -29,9 +28,20 @@ Route::middleware(['auth:web'])->group(function () {
     Route::put('/post/update/{id}', [BlogController::class, 'updatePost'])->name('post.update');
 });
 
+// OR -> different syntax
+// Route::controller(BlogController::class)->middleware(['auth:web'])->group(function () {
+//     Route::get('/post/add', 'showPostCreatePage')->name('post.createPage');
+//     Route::post('/post/add', 'addPostToDb')->name('post.create');
+//     Route::delete('/post/delete/{id}', 'deletePostFromDb')->name('post.delete');
+//     Route::put('/post/update/{id}', 'updatePost')->name('post.update');
+// });
+
+
+
 
 // |> Routes for authentication
 Route::group(['prefix' => '/auth'], function () {
+
     Route::post('/login', [AuthController::class, 'loginUser'])->name('auth.login');
     Route::post('/register', [AuthController::class, 'registerUser'])->name('auth.register');
 

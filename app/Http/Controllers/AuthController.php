@@ -17,33 +17,6 @@ class AuthController extends Controller
     // register method -------------------------------------------------
     public function registerUser(Request $request)
     {
-        // // dd($request->all());
-        // $validator = Validator::make($request->all(), [
-        //     'fullname' => 'required|string',
-        //     'email' => 'required|string|email|unique:users,email',
-        //     'password' => 'required|string|min:5', // |>password should be of min length 5
-        //     'confirm_password' => 'required|string|same:password', //|> Validation rule to match passwords
-        // ], [
-        //     'confirm_password.same' => 'password and confirm_password should match'
-        // ]);
-
-
-        // if ($validator->fails()) {
-        //     $errors = $validator->errors();
-        //     dd('Error in registration', $errors->messages());
-        //     return  response()->json(['errors' => $errors], 400);
-        // }
-
-        // // dd($validator->validate());
-
-
-
-
-
-
-
-
-
 
         $validator = Validator::make($request->all(), [
             'fullname' => 'required|string',
@@ -83,7 +56,6 @@ class AuthController extends Controller
     // login method -------------------------------------------------
     public function loginUser(Request $request)
     {
-
         // dd('reched');
         //|> 1. First check if email and password are present.
         $validator = Validator::make($request->all(), [
@@ -99,7 +71,7 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            dd('request email,password error', $errors);
+            // dd('request email,password error', $errors);
             return  response()->json(['errors' => $errors->messages()], 400);
         }
 
@@ -108,7 +80,7 @@ class AuthController extends Controller
         $validatedData = $validator->validated();
         //|> Now check the authentication.
         $authRes = Auth::attempt($validatedData);
-
+        // dd($authRes);
         // dd($validator->validated(), $authRes);
 
         // dd(Auth::check(), Auth::attempt(($validatedData)));
@@ -119,7 +91,9 @@ class AuthController extends Controller
             $user = User::where('email', $validatedData['email'])->first();
             if (!$user) {
                 return response()->json(['error' => 'User not registered yet'], 404);
+                // return redirect('user/login')->withErrors($validator);
             } else {
+                // return redirect('user/login')->withErrors($validator);
                 return response()->json(['error' => 'Invalid credentials'], 401);
             }
         }

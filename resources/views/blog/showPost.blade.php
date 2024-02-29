@@ -8,7 +8,8 @@
                     <p> ←BACK</p>
                 </a>
             </div>
-            @if (Auth::user())
+            {{-- <p>{{ Auth::user()->id . ' ' . $post->user_id }}</p> --}}
+            @if (Auth::user() && Auth::user()->id == $post->user_id)
                 <div class="edit-btn-div">
                     <button onclick="toggleEditForm()">Edit</button>
                 </div>
@@ -39,8 +40,8 @@
                     <p>{{ $post->content }}</p>
                 </div>
             </div>
-            <form action="{{ route('post.update', ['id' => $post->id]) }}" method="POST" class="edit-post-form"
-                id="editForm" style="display: none;">
+            <form action="{{ route('post.update', ['id' => $post->id]) }}" method="POST" enctype="multipart/form-data"
+                class="edit-post-form" id="editForm" style="display: none;">
                 @csrf
                 @method('PUT')
                 <div class="form-group">

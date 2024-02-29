@@ -18,7 +18,7 @@ class BlogController extends Controller
 
         return view('blog.index', ['posts' => $posts]);  //|> resources/view/blog->index.blade.php
     }
-
+    // --------------------------------------------------------------------------------------------------
     public function showDetailPost($id)
     {
         $post = Post::find($id);
@@ -39,6 +39,7 @@ class BlogController extends Controller
         return view('blog.index', ['posts' => $res]);
     }
 
+    // --------------------------------------------------------------------------------------------------
 
     public function showPostCreatePage()
     {
@@ -58,6 +59,7 @@ class BlogController extends Controller
     //|> Add
     public function addPostToDb(Request $request)
     {
+        // dd($request->all());
         $userId  = auth()->id();
         $imagePath = $request->file('image')->store('images', 'public');
 
@@ -74,6 +76,7 @@ class BlogController extends Controller
         return redirect()->route('posts.home');
     }
 
+    // --------------------------------------------------------------------------------------------------
     //|> Delete
     public function deletePostFromDb(string $id)
     {
@@ -85,6 +88,7 @@ class BlogController extends Controller
 
         return redirect()->route('posts.home');
     }
+    // --------------------------------------------------------------------------------------------------
     // |> update
     public function updatePost(Request $request, string $id)
     {
@@ -95,10 +99,13 @@ class BlogController extends Controller
         $post->author = $request->input('author');
         $post->content = $request->input('content');
 
+
+        // dd($request->all());
         // Handle file upload if a new image is provided
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
-            dd($imagePath);
+
+            // dd($imagePath);
             $post->image_url = $imagePath;
         }
 
