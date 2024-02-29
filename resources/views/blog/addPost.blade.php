@@ -29,7 +29,7 @@
         <div class="add-post-form-container">
             <div class="form-wrapper">
 
-                <form class="max-w-sm mx-auto" action="{{ route('post.add') }}" method="POST"
+                <form class="max-w-sm mx-auto" action="{{ route('post.create') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div>

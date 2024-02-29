@@ -14,7 +14,7 @@
     <div class="login-container">
         @if (Auth::user())
             <div class="add-btn">
-                <a href="{{ route('post.showAdd') }}">
+                <a href="{{ route('post.createPage') }}">
                     Add
                 </a>
             </div>
@@ -25,9 +25,7 @@
                 </a>
             </div>
             <div class="user-badge">
-                {{-- <a href=""> --}}
                 <p>{{ Auth::user()->fullname[0] }}</p>
-                {{-- </a> --}}
             </div>
         @else
             <div class="login-btn">

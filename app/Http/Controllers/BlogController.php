@@ -39,7 +39,8 @@ class BlogController extends Controller
         return view('blog.index', ['posts' => $res]);
     }
 
-    public function showAddPostPage()
+
+    public function showPostCreatePage()
     {
         return view('blog.addPost');
     }
@@ -48,19 +49,17 @@ class BlogController extends Controller
     {
         return view('auth.login');
     }
+
     public function showRegisterPage()
     {
-        // return '<p>ffs</p>';
         return view('auth.register');
     }
 
+    //|> Add
     public function addPostToDb(Request $request)
     {
-
         $userId  = auth()->id();
-        // $imagePath = $request->file('image')->store('public');
         $imagePath = $request->file('image')->store('images', 'public');
-
 
         // dd($imagePath);
 
@@ -75,11 +74,7 @@ class BlogController extends Controller
         return redirect()->route('posts.home');
     }
 
-    public function editPost()
-    {
-        return view('blog.index');
-    }
-
+    //|> Delete
     public function deletePostFromDb(string $id)
     {
         // dd($id);
@@ -89,5 +84,28 @@ class BlogController extends Controller
         // return view('blog.index'); //|> This would give error at blog.index page as view blog.index expects to receive some data to be explicitly pass in order to render properly
 
         return redirect()->route('posts.home');
+    }
+    // |> update
+    public function updatePost(Request $request, string $id)
+    {
+        $post = Post::find($id);
+
+        // Update the post attributes with the values from the request
+        $post->title = $request->input('title');
+        $post->author = $request->input('author');
+        $post->content = $request->input('content');
+
+        // Handle file upload if a new image is provided
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            dd($imagePath);
+            $post->image_url = $imagePath;
+        }
+
+        // Save the changes to the database
+        $post->save();
+
+        // Redirect the user to the home page
+        return redirect()->route('posts.detail', ['id' => $id]);
     }
 }

@@ -35,7 +35,7 @@
     font-weight: 700;
     height: 100%;
 }
-.edit-btn {
+.edit-btn-div {
     height: 40%;
     background-color: blue;
     display: flex;
@@ -46,7 +46,11 @@
     border-radius: 5px;
     margin-left: auto;
 }
-.edit-btn p {
+.edit-btn-div button {
+    background: none;
+    outline: none;
+    width: 100%;
+    border: none;
     color: white;
     font-size: 0.8rem;
     font-weight: 500;
@@ -164,4 +168,49 @@
     font-size: 0.8rem;
     line-height: 2.5;
     font-weight: 500;
+}
+
+/* ---------- */
+.edit-post-form {
+    width: 60%;
+    margin: 20px auto;
+}
+
+.edit-post-form .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-post-form input[type="text"],
+.edit-post-form textarea,
+.edit-post-form input[type="file"] {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.edit-post-form textarea {
+    resize: vertical;
+    height: 150px; /* Adjust the height as needed */
+}
+
+.edit-post-form button {
+    padding: 5px;
+    font-size: 0.7rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-post-form button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.edit-post-form button[type="button"] {
+    background-color: #6c757d;
+    color: #fff;
+    margin-left: 10px;
 }

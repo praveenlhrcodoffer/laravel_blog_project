@@ -8,6 +8,8 @@ use  App\Http\Controllers\LoginController;
 use App\Http\Controllers\Api\UserController;
 
 
+
+//|> Routes for views
 Route::get('/', [BlogController::class, 'index'])->name('posts.home');
 Route::get('/search', [BlogController::class, 'searchPost'])->name('posts.search');
 Route::get('/posts/{id}', [BlogController::class, 'showDetailPost'])->name('posts.detail');
@@ -18,10 +20,22 @@ Route::prefix('user')->group(function () {
     Route::get('/register', [BlogController::class, 'showRegisterPage'])->name('user.register');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/post/add', [BlogController::class, 'showAddPostPage'])->name('post.showAdd');
-    Route::post('/post/add', [BlogController::class, 'addPostToDb'])->name('post.add');
+
+//|> Routes for post CRUD
+Route::middleware(['auth:web'])->group(function () {
+    Route::get('/post/add', [BlogController::class, 'showPostCreatePage'])->name('post.createPage');
+    Route::post('/post/add', [BlogController::class, 'addPostToDb'])->name('post.create');
+    Route::delete('/post/delete/{id}', [BlogController::class, 'deletePostFromDb'])->name('post.delete');
+    Route::put('/post/update/{id}', [BlogController::class, 'updatePost'])->name('post.update');
 });
 
 
-Route::delete('/post/delete/{id}', [BlogController::class, 'deletePostFromDb'])->name('post.delete');
+// |> Routes for authentication
+Route::group(['prefix' => '/auth'], function () {
+    Route::post('/login', [AuthController::class, 'loginUser'])->name('auth.login');
+    Route::post('/register', [AuthController::class, 'registerUser'])->name('auth.register');
+
+    Route::middleware(['auth:web'])->group(function () {
+        Route::get('/logout', [AuthController::class, 'logoutUser'])->name('auth.logout');
+    });
+});

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +17,34 @@ class AuthController extends Controller
     // register method -------------------------------------------------
     public function registerUser(Request $request)
     {
-        // dd($request->all());
+        // // dd($request->all());
+        // $validator = Validator::make($request->all(), [
+        //     'fullname' => 'required|string',
+        //     'email' => 'required|string|email|unique:users,email',
+        //     'password' => 'required|string|min:5', // |>password should be of min length 5
+        //     'confirm_password' => 'required|string|same:password', //|> Validation rule to match passwords
+        // ], [
+        //     'confirm_password.same' => 'password and confirm_password should match'
+        // ]);
+
+
+        // if ($validator->fails()) {
+        //     $errors = $validator->errors();
+        //     dd('Error in registration', $errors->messages());
+        //     return  response()->json(['errors' => $errors], 400);
+        // }
+
+        // // dd($validator->validate());
+
+
+
+
+
+
+
+
+
+
         $validator = Validator::make($request->all(), [
             'fullname' => 'required|string',
             'email' => 'required|string|email|unique:users,email',
@@ -28,15 +55,6 @@ class AuthController extends Controller
         ]);
 
 
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            dd('Error in registration', $errors->messages());
-            return  response()->json(['errors' => $errors], 400);
-        }
-
-        // dd($validator->validate());
-
-
         //|> Either use unique:email rule in Validator which will check for unqiue value in table
         //|> or use the below to check if email already exists or not
         // if (User::where('email', $request->email)->exists()) {
@@ -44,20 +62,21 @@ class AuthController extends Controller
         //     return response()->json(['error' => 'User already exists'], 409); // 409 Conflict
         // }
 
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            dd('Error in registration', $errors->messages());
+            return  response()->json(['errors' => $errors], 400);
+        }
 
-        $user = new User([
+        $user = User::create([
             'fullname' => $request->fullname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        if ($user->save()) {
-            $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->plainTextToken;
-            return redirect()->route('posts.home', ['accessToken' => $token]);
-        } else {
-            return response()->json(['error' => 'Provide proper details']);
-        }
+        Auth::login($user);
+
+        return redirect()->route('posts.home');
     }
 
 
