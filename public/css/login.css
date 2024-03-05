@@ -32,3 +32,21 @@
     font-weight: 700;
     height: 100%;
 }
+
+.error-div {
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 0, 0, 0.137);
+    border-radius: 5px;
+}
+.error-div p {
+    font-size: 0.8rem;
+    color: red;
+}

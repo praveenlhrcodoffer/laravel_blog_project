@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -28,14 +29,6 @@ class AuthController extends Controller
             'confirm_password.same' => 'password and confirm_password should match'
         ]);
 
-
-        //|> Either use unique:email rule in Validator which will check for unqiue value in table
-        //|> or use the below to check if email already exists or not
-        // if (User::where('email', $request->email)->exists()) {
-        //     dd('User already registered');
-        //     return response()->json(['error' => 'User already exists'], 409); // 409 Conflict
-        // }
-
         if ($validator->fails()) {
             $errors = $validator->errors();
             dd('Error in registration', $errors->messages());
@@ -54,10 +47,11 @@ class AuthController extends Controller
     }
 
 
-    // login method -------------------------------------------------
+    // login method ------------------------------------------------------------
+
     public function loginUser(Request $request)
     {
-        // dd('reched');
+
         //|> 1. First check if email and password are present.
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -65,40 +59,23 @@ class AuthController extends Controller
         ]);
 
 
-        //|> $validator variable will contain the response. Calling the ->fails() method
-        //|> will check if there was any error, if yes then return error
-
-        // dd($validator);
-
         if ($validator->fails()) {
             $errors = $validator->errors();
-            // dd('request email,password error', $errors);
-            return  response()->json(['errors' => $errors->messages()], 400);
+            return Redirect::back()->withErrors($errors);
         }
 
-
-        //|> If everything above is ok then get the data that was validated using validated() method.
         $validatedData = $validator->validated();
-        //|> Now check the authentication.
-        $authRes = Auth::attempt($validatedData);
-        // dd($authRes);
-        // dd($validator->validated(), $authRes);
+        // dd($validatedData);
 
-        // dd(Auth::check(), Auth::attempt(($validatedData)));
+        // $authRes = Auth::attempt($validatedData);
 
-        if ($authRes) {
-            return redirect()->route('posts.home');
+        $user = User::where('email', $validatedData['email'])->first();
+
+        if (!$user) {
+            return Redirect::back()->withErrors(['msg' => 'User not yet registered !!']);
         } else {
-            $user = User::where('email', $validatedData['email'])->first();
-            if (!$user) {
-                return response()->json(['error' => 'User not registered yet'], 404);
-                // return redirect('user/login')->withErrors($validator);
-
-            } else {
-                return redirect('user/login')->withErrors($validator);
-                // return $validator->errors();
-                // return response()->json(['error' => 'Invalid credentials'], 401);
-            }
+            $authRes = Auth::attempt($validatedData);
+            return redirect('user/login')->withErrors(['msg' => 'Invalid Password']);
         }
     }
 

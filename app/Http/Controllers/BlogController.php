@@ -64,7 +64,6 @@ class BlogController extends Controller
         $imagePath = $request->file('image')->store('images', 'public');
 
         // dd($imagePath);
-
         DB::table('posts')->insert([
             'title' => $request->title,
             'author' => $request->author,
