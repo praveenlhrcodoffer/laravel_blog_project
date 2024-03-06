@@ -24,7 +24,6 @@ Route::prefix('user')->group(function () {
 Route::middleware(['auth:web'])->group(function () {
     Route::get('/post/add', [BlogController::class, 'showPostCreatePage'])->name('post.createPage');
     Route::post('/post/add', [BlogController::class, 'addPostToDb'])->name('post.create');
-    Route::delete('/post/delete/{id}', [BlogController::class, 'deletePostFromDb'])->name('post.delete');
     Route::put('/post/update/{id}', [BlogController::class, 'updatePost'])->name('post.update');
 });
 
@@ -38,7 +37,6 @@ Route::middleware(['auth:web'])->group(function () {
 
 
 
-
 // |> Routes for authentication
 Route::group(['prefix' => '/auth'], function () {
 
@@ -49,3 +47,27 @@ Route::group(['prefix' => '/auth'], function () {
         Route::get('/logout', [AuthController::class, 'logoutUser'])->name('auth.logout');
     });
 });
+
+
+
+
+/*
+
+// jQuery, bind an event handler or use some other way to trigger ajax call.
+$('form').submit(function( event ) {
+    event.preventDefault();
+    $.ajax({
+        url: 'http://myserver.dev/myAjaxCallURI',
+        type: 'post',
+        data: $('form').serialize(), // Remember that you need to have your csrf token included
+        dataType: 'json',
+        success: function( _response ){
+            // Handle your response..
+        },
+        error: function( _response ){
+            // Handle error
+        }
+    });
+});
+
+*/

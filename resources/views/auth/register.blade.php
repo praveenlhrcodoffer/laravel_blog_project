@@ -7,9 +7,19 @@
                 <p> ←BACK</p>
             </a>
         </div>
+
         <div class="login-form-wrapper">
 
+
             <div class="login-form-inner-container">
+                @if ($errors->any())
+                    @foreach ($errors->all() as $err)
+                        <div class="error-div">
+                            <p>{{ $err }}</p>
+                        </div>
+                    @endforeach
+                @endif
+
 
                 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                     <div class="sm:mx-auto sm:w-full sm:max-w-sm">

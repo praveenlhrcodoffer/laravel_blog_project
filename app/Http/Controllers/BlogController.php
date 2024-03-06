@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
@@ -60,19 +61,32 @@ class BlogController extends Controller
     public function addPostToDb(Request $request)
     {
         // dd($request->all());
-        $userId  = auth()->id();
-        $imagePath = $request->file('image')->store('images', 'public');
-
-        // dd($imagePath);
-        DB::table('posts')->insert([
-            'title' => $request->title,
-            'author' => $request->author,
-            'content' => $request->content,
-            'image_url' => $imagePath,
-            'user_id' => $userId
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'author' => 'required|string',
+            'content' => 'required|min:10',
+            'image' => 'required|image'
         ]);
 
-        return redirect()->route('posts.home');
+        if ($validator->fails()) {
+
+            $errors = $validator->errors();
+            return response()->json(['errors' => $errors], 400);
+        } else {
+
+            $imagePath = $request->file('image')->store('images', 'public');
+            $userId  = auth()->id();
+
+            DB::table('posts')->insert([
+                'title' => $request->title,
+                'author' => $request->author,
+                'content' => $request->content,
+                'image_url' => $imagePath,
+                'user_id' => $userId
+            ]);
+            return response()->json(['success' => 'Post added successfully'], 200);
+            // return redirect()->route('posts.home');
+        }
     }
 
     // --------------------------------------------------------------------------------------------------

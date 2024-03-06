@@ -65,3 +65,7 @@
     height: 80%;
     /* border: 1px solid red; */
 }
+
+.hide {
+    display: none !important;
+}

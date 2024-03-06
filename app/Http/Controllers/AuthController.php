@@ -26,13 +26,16 @@ class AuthController extends Controller
             'password' => 'required|string|min:5', // |>password should be of min length 5
             'confirm_password' => 'required|string|same:password', //|> Validation rule to match passwords
         ], [
-            'confirm_password.same' => 'password and confirm_password should match'
+            'confirm_password.same' => 'password and confirm password should match'
         ]);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            dd('Error in registration', $errors->messages());
-            return  response()->json(['errors' => $errors], 400);
+
+            return Redirect::back()->withErrors($errors);
+            // OR
+            // return redirect()->back()->withErrors($errors);
+
         }
 
         $user = User::create([
@@ -51,7 +54,6 @@ class AuthController extends Controller
 
     public function loginUser(Request $request)
     {
-
         //|> 1. First check if email and password are present.
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -67,15 +69,19 @@ class AuthController extends Controller
         $validatedData = $validator->validated();
         // dd($validatedData);
 
-        // $authRes = Auth::attempt($validatedData);
-
         $user = User::where('email', $validatedData['email'])->first();
 
         if (!$user) {
             return Redirect::back()->withErrors(['msg' => 'User not yet registered !!']);
         } else {
+
             $authRes = Auth::attempt($validatedData);
-            return redirect('user/login')->withErrors(['msg' => 'Invalid Password']);
+
+            if ($authRes) {
+                return redirect()->route('posts.home');
+            } else {
+                return redirect('user/login')->withErrors(['msg' => 'Invalid Password']);
+            }
         }
     }
 
