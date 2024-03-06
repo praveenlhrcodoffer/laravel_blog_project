@@ -130,7 +130,6 @@
                         var msgSpanTag = document.getElementById('msg-span');
                         msgSpanTag.textContent = errormsg[0];
                         alertToast.classList.remove('hide');
-
                     }
 
                 })

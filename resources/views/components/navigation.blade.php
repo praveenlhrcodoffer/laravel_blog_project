@@ -1,13 +1,24 @@
 <nav class="navbar-wrapper">
     <div class="search-container">
         <div class="search-bar-container">
-            <form action="{{ route('posts.search') }}" method="GET">
-                <input type="search" name="query" placeholder="search posts" />
-                <button type="submit">Search</button>
-            </form>
-
+            {{-- <form action="{{ route('posts.search') }}" method="GET"> --}}
+            <input id="search-input" oninput="debounceSearch('{{ route('posts.search') }}')" type="search" name="query"
+                placeholder="search posts" />
+            {{-- <button onclick="searchPost(event)" type="submit">Search</button> --}}
+            {{-- </form> --}}
         </div>
 
+
+        <div id="search-list">
+            {{-- <div class="search-item-container ">
+                <div class="sc-image-wrapper ">
+                    <img src={{ asset('/') }} />
+                </div>
+                <div class="sc-title-wrapper ">
+                    <p>This is sample title</p>
+                </div>
+            </div> --}}
+        </div>
 
 
     </div>
@@ -37,7 +48,7 @@
 
     </div>
 
-
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src={{ asset('js/navigation.js') }}></script>
 
 </nav>

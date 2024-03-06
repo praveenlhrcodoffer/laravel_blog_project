@@ -37,7 +37,8 @@ class BlogController extends Controller
             ->get();
 
 
-        return view('blog.index', ['posts' => $res]);
+        return response()->json(['data' => $res], 200);
+        // return view('blog.index', ['posts' => $res]);
     }
 
     // --------------------------------------------------------------------------------------------------
