@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 
@@ -24,6 +26,11 @@ class BlogController extends Controller
     {
         $post = Post::find($id);
 
+
+        //|> TODO: fetching comments for the post
+        $comments =$post->comments();
+        dd($comments);
+
         return view('blog.showPost', ['post' => $post]);
     }
 
@@ -39,6 +46,20 @@ class BlogController extends Controller
 
         return response()->json(['data' => $res], 200);
         // return view('blog.index', ['posts' => $res]);
+    }
+
+    public function addComment(Request $req)
+    {
+        // dd($req->all());
+
+        $comment = Comment::create([
+            'comment' => $req->comment,
+            'user_id' => $req->user_id,
+            'post_id' => $req->post_id,
+            'username' => $req->username,
+        ]);
+
+        return response()->json(['msg' => 'comment added succesfully'], 200);
     }
 
     // --------------------------------------------------------------------------------------------------

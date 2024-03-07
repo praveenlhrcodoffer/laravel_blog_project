@@ -46,8 +46,8 @@
     border-top: 2px solid rgba(112, 128, 144, 0.326);
     border: 2px solid rgba(112, 128, 144, 0.326);
 
-    /* border-radius: 5px 0px 0px 5px; */
-    border-radius: 5px;
+    border-radius: 5px 0px 0px 5px;
+    /* border-radius: 5px; */
 }
 .search-bar-container button {
     width: 20%;
@@ -96,10 +96,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(112, 128, 144, 0.341);
+    background-color: rgba(112, 128, 144, 0.169);
     padding-left: 10px;
     padding-right: 10px;
     margin-left: 20px;
+    border: 1px solid rgb(114, 114, 221);
 }
 
 .add-btn {
@@ -137,10 +138,12 @@
 
 #search-list {
     position: absolute;
-    top: 100%;
+    top: 102%;
     left: 0;
-    width: 100%;
-    height: 300px;
+    width: 60%;
+    height: 0px;
+    /* max-height: 300px; */
+
     background-color: white;
     /* border: 1px solid red; */
     display: flex;
@@ -148,27 +151,40 @@
     justify-content: flex-start;
     align-items: center;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border: 1px solid rgba(0, 0, 0, 0.146);
+    /* border: 1px solid rgba(0, 0, 0, 0.146); */
+    overflow-y: scroll;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
 }
 .search-item-container {
-    width: 90%;
+    width: 80%;
     height: 80px;
-    border: 1px solid black;
-    margin-top: 10px;
+    min-height: 80px;
+    /* border: 1px solid black; */
+    margin-top: 25px;
     margin-bottom: 10px;
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: 100%;
     grid-template-areas: "sc-image-wrapper sc-title-wrapper";
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 2px;
+    overflow: hidden;
 }
 .sc-image-wrapper {
     grid-area: sc-image-wrapper;
-    width: 100%;
+    /* width: 100%; */
+    aspect-ratio: 1/1;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .sc-image-wrapper img {
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
@@ -176,5 +192,20 @@
     grid-area: sc-title-wrapper;
     width: 100%;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.sc-title-wrapper p {
+    margin-left: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+.sc-title-wrapper span {
+    margin-left: 10px;
+    font-size: 0.6rem;
+    color: #f85077;
+    font-weight: 500;
 }

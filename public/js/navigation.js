@@ -1,48 +1,77 @@
-let debounceTimer;
+var searchInput = document.getElementById("search-input");
+var resultsContainer = document.getElementById("search-list");
+let searchData = [];
+let searchQuery = "";
 
-function debounceSearch(route) {
-    clearTimeout(debounceTimer);
-
-    debounceTimer = setTimeout(function () {
-        searchPost(route);
-    }, 500);
-}
-
-function searchPost(route) {
-    // console.log(route);
-    var searchQuery = document.getElementById("search-input").value;
-
-    console.log(searchQuery, route);
-
+// ------------––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+function searchPost(route, searchQuery) {
     $.ajax({
-        url: `${route}`,
+        url: route,
         method: "GET",
         data: { query: searchQuery },
         dataType: "json",
         success: function (response) {
-            console.log("Search results:", response.data);
+            searchData = response.data;
+            // console.log(searchQuery, searchData);
 
-            var resultsContainer = document.getElementById("search-list");
+            resultsContainer.style.height =
+                searchData && searchData.length > 0 && searchQuery.length > 0
+                    ? "300px"
+                    : "0px";
 
-            var list = response.data.map((element) => {
-                return `<div class="search-item-container ">
-                        <div class="sc-image-wrapper ">
-                            <img src={{ asset('/') }} />
-                        </div>
-                        <div class="sc-title-wrapper ">
-                            <p>This is sample title</p>
-                        </div>
-                        </div>`;
-            });
-            console.log(list);
-            console.log(resultsContainer);
-            resultsContainer.innerHTML(list);
-            // var searchList = document.getElementById("search-list");
+            var list = searchData
+                .map((item) => {
+                    return `<div class="search-item-container">
+                                <div class="sc-image-wrapper">
+                                    <a href="/posts/${item.id}">
+                                        <img src="storage/${item.image_url}" alt="${item.title}" />
+                                    </a>
+                                    </div>
+                                <div class="sc-title-wrapper">
+                                    <p>${item.title}</p>
+                                    <span>• ${item.author}</span>
+                                </div>
+                            </div>`;
+                })
+                .join("");
+
+            resultsContainer.innerHTML = list;
         },
         error: function (error) {
             console.error("Error:", error);
         },
     });
 }
+// ------------––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+let debounceTimer;
 
-function displayData() {}
+function debounceSearch(route, searchQuery) {
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(function () {
+        // console.log(route, searchQuery);
+        searchPost(route, searchQuery);
+    }, 500);
+}
+
+// ------------––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+searchInput.addEventListener("input", () => {
+    route = searchInput.getAttribute("data-route");
+
+    searchQuery = searchInput.value;
+
+    debounceSearch(route, searchQuery);
+
+    if (searchQuery.length >= 1) {
+    } else if (searchQuery.length <= 0) {
+        clearSearch();
+    }
+});
+
+// ------------––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+function clearSearch() {
+    searchData = [];
+    resultsContainer.innerHTML = "";
+    resultsContainer.style.height = "0px";
+}

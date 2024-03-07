@@ -2,9 +2,11 @@
     <div class="search-container">
         <div class="search-bar-container">
             {{-- <form action="{{ route('posts.search') }}" method="GET"> --}}
-            <input id="search-input" oninput="debounceSearch('{{ route('posts.search') }}')" type="search" name="query"
-                placeholder="search posts" />
+            <input id="search-input" {{-- oninput="debounceSearch('{{ route('posts.search') }}')" --}} data-route="{{ route('posts.search') }}" type="search"
+                name="query" placeholder="search posts" />
             {{-- <button onclick="searchPost(event)" type="submit">Search</button> --}}
+            <button onclick="clearSearch()" type="button">clear</button>
+
             {{-- </form> --}}
         </div>
 
