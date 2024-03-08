@@ -24,7 +24,7 @@ function searchPost(route, searchQuery) {
                     return `<div class="search-item-container">
                                 <div class="sc-image-wrapper">
                                     <a href="posts/${item.id}">
-                                        <img src=/storage/${item.image_url}" alt="no-image" />
+                                        <img src="/storage/${item.image_url}" alt="no-image" />
                                     </a>
                                     </div>
                                 <div class="sc-title-wrapper">
