@@ -12,7 +12,7 @@ function searchPost(route, searchQuery) {
         dataType: "json",
         success: function (response) {
             searchData = response.data;
-            // console.log(searchQuery, searchData);
+            console.log(searchQuery, searchData);
 
             resultsContainer.style.height =
                 searchData && searchData.length > 0 && searchQuery.length > 0
@@ -23,8 +23,8 @@ function searchPost(route, searchQuery) {
                 .map((item) => {
                     return `<div class="search-item-container">
                                 <div class="sc-image-wrapper">
-                                    <a href="/posts/${item.id}">
-                                        <img src="storage/${item.image_url}" alt="${item.title}" />
+                                    <a href="posts/${item.id}">
+                                        <img src=/storage/${item.image_url}" alt="no-image" />
                                     </a>
                                     </div>
                                 <div class="sc-title-wrapper">

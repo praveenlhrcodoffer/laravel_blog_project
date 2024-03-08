@@ -28,7 +28,7 @@
         @if (Auth::user())
             <div class="add-btn">
                 <a href="{{ route('post.createPage') }}">
-                    Add
+                    + Add
                 </a>
             </div>
 

@@ -109,7 +109,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #0080ff;
+    background-color: #61bf6a;
     border-radius: 5px;
     padding: 0px 10px 0px 10px;
     margin-right: 10px;
@@ -125,7 +125,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #d9140f;
+    background-color: #e23d31;
     border-radius: 5px;
     margin-left: 20px;
     padding-left: 10px;
@@ -158,6 +158,7 @@
     left: 0;
     right: 0;
     box-sizing: border-box;
+    z-index: 999;
 }
 .search-item-container {
     width: 80%;

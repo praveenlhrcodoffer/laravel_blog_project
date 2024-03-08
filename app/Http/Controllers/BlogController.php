@@ -25,14 +25,14 @@ class BlogController extends Controller
     public function showDetailPost($id)
     {
         $post = Post::find($id);
-
+        $comments = $post->comments;
 
         //|> TODO: fetching comments for the post
-        $comments =$post->comments();
-        dd($comments);
+        // dd($post, $comments);
 
-        return view('blog.showPost', ['post' => $post]);
+        return view('blog.showPost', ['post' => $post, 'comments' => $comments]);
     }
+    // --------------------------------------------------------------------------------------------------
 
     public function searchPost(Request $req)
     {
@@ -59,7 +59,25 @@ class BlogController extends Controller
             'username' => $req->username,
         ]);
 
-        return response()->json(['msg' => 'comment added succesfully'], 200);
+        return response()->json(['msg' => 'comment added succesfully', 'comment_id' => $comment->id], 200);
+    }
+
+    public function deleteComment(Request $req)
+    {
+        // dd('Hii this is passe.', $req->all());
+        $comment = Comment::find($req->comment_id);
+        $comment->delete();
+        return response()->json(['msg' => 'comment deleted succesfully', 'comment_id' => $req->comment_id]);
+    }
+
+    public function editComment(Request $req)
+    {
+
+        // dd($req->all());
+        $comment = Comment::find($req->comment_id);
+        $comment->comment =$req->update_comment;
+        $comment->save();
+        return response()->json(['msg'=> 'comment edit success', 'data'=> $comment],200);
     }
 
     // --------------------------------------------------------------------------------------------------

@@ -37,7 +37,7 @@
 }
 .edit-btn-div {
     height: 40%;
-    background-color: blue;
+    background-color: #7449ea;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,11 +54,12 @@
     color: white;
     font-size: 0.8rem;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .delete-btn {
     height: 40%;
-    background-color: red;
+    background-color: #e23d31;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,6 +77,7 @@
 .delete-btn button {
     background: none;
     border: none;
+    cursor: pointer;
 }
 
 /* ---------------------------------------------- */
@@ -214,8 +216,11 @@
     margin-left: 20px;
 }
 .comment-main-div {
+    position: relative;
     width: 100%;
     height: 75%;
+    min-height: 75%;
+    min-width: 100%;
     /* border: 1px solid red; */
     display: flex;
     justify-content: flex-start;
@@ -225,11 +230,11 @@
 }
 
 /* ------------------------------------ */
-.comment-item-div {
-    width: 70%;
-    height: 70px;
-    min-height: 70px;
-    border: 1px solid rgba(112, 128, 144, 0.181);
+.comment-item-container {
+    width: auto;
+    max-width: 70%;
+    min-width: 70%;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -237,19 +242,112 @@
     margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 40px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
+    padding-right: 20px;
+    box-sizing: border-box;
+    word-wrap: break-word; /* Use word-wrap instead of text-wrap */
+    border: 1px solid rgba(112, 128, 144, 0.365);
 }
-#commented-author-text {
+.comment-text-input-cell {
+    width: 100%;
+    min-height: 30px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+[id^="commented-text-text-"] {
+    position: relative;
     font-size: 0.8rem;
     margin-left: 20px;
 }
-#commented-text-text {
+[id^="commented-text-text-"]::before {
+    position: absolute;
+    left: -20px;
+    top: 0;
+    content: "-";
+    /* background-color: blue; */
+}
+
+.comment-edit-input {
+    font-size: 0.8rem;
+    padding-left: 20px;
+}
+
+[id^="comment-edit-input"] {
+    display: none;
+    width: 100%;
+    height: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid rgba(135, 207, 235, 0.614);
+    outline: none;
+}
+
+.username-curd-btn-cell {
+    width: 100%;
+    height: 30px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* ----------------- */
+[id^="edit-delete-btn-container"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: auto;
+    margin-right: 10px;
+}
+
+[id^="save-cancel-btn-container"] {
+    display: none;
+}
+
+/* ----------- */
+
+.crud-btn {
+    height: 50%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 15px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#comment-edit-btn {
+    border: 1px solid slategray;
+}
+#comment-del-btn {
+    border: 1px solid #e23d31;
+}
+
+.crud-btn p {
+    font-size: 0.6rem;
+    color: black;
+}
+
+#commented-author-text {
     font-size: 0.7rem;
     font-style: italic;
     font-weight: 500;
     margin-left: 25px;
     color: #f85076;
+    white-space: nowrap;
+    margin-top: 8px;
 }
+
 /* ------------------------------------ */
 
 .comment-input-div {
@@ -265,6 +363,7 @@
     align-items: center;
     justify-content: flex-start;
     padding-right: 10px;
+    /* border: 1px solid red; */
 }
 .comment-input-div input {
     width: 80%;
@@ -288,6 +387,29 @@
     color: white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#login-button {
+    width: 130px;
+    height: 40%;
+    background-color: #f85077c8;
+    border: none;
+    outline: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+#login-button p {
+    font-size: 0.8rem;
+    white-space: nowrap;
 }
 /* ----------------------------------------------------------- */
 .edit-post-form {

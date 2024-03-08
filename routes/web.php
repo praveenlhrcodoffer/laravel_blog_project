@@ -22,10 +22,16 @@ Route::prefix('user')->group(function () {
 
 //|> Routes for post CRUD
 Route::middleware(['auth:web'])->group(function () {
+
     Route::get('/post/add', [BlogController::class, 'showPostCreatePage'])->name('post.createPage');
     Route::post('/post/add', [BlogController::class, 'addPostToDb'])->name('post.create');
+    Route::post('/post/delete', [BlogController::class, 'deletePostFromDb'])->name('post.delete');
     Route::put('/post/update/{id}', [BlogController::class, 'updatePost'])->name('post.update');
-    Route::post('/post/comment', [BlogController::class, 'addComment'])->name('post.comment');
+
+    //|> comments related path
+    Route::post('/post/comment/add', [BlogController::class, 'addComment'])->name('comment.add');
+    Route::delete('/post/comment/delete', [BlogController::class, 'deleteComment'])->name('comment.delete');
+    Route::put('/post/comment/edit', [BlogController::class, 'editComment'])->name('comment.edit');
 });
 
 // OR -> different syntax

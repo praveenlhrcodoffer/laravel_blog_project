@@ -52,6 +52,33 @@ class AuthController extends Controller
 
     // login method ------------------------------------------------------------
 
+
+    // public function loginUser(Request $request)
+    // {
+    //     // Directly validate the request data and automatically redirect back with errors
+    //     $validatedData = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required|string',
+    //     ]);
+
+    //     // Attempt to authenticate the user
+    //     if (Auth::attempt($validatedData)) {
+    //         // Authentication passed, redirect to the intended page with a default fallback
+    //         return redirect()->route('posts.home');
+    //     }
+
+    //     // If authentication failed, redirect back to the login form with an error message
+    //     // No need to explicitly check if user exists in this scenario
+    //     return redirect('user/login')->withErrors(
+    //         [
+    //             // 'email' => 'The provided credentials do not match our records.',
+    //             // 'password' => 'Invalid password',
+    //             'msg' => 'Invalid credentials',
+    //         ]
+    //     );
+    // }
+
+
     public function loginUser(Request $request)
     {
         //|> 1. First check if email and password are present.
@@ -75,10 +102,14 @@ class AuthController extends Controller
             return Redirect::back()->withErrors(['msg' => 'User not yet registered !!']);
         } else {
 
-            $authRes = Auth::attempt($validatedData);
-
+            $authRes = Auth::attempt([
+                'email' => $validatedData['email'],
+                'password' => $validatedData['password']
+            ]);
+            // Auth::login($user);
             if ($authRes) {
                 return redirect()->route('posts.home');
+                // return Redirect::back();
             } else {
                 return redirect('user/login')->withErrors(['msg' => 'Invalid Password']);
             }
@@ -90,6 +121,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         Auth::logout();
-        return redirect()->route('posts.home');
+        return Redirect::back();
+        // return redirect()->route('posts.home');
     }
 }
