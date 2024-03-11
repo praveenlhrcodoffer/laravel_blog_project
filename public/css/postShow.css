@@ -328,14 +328,18 @@
 
 #comment-edit-btn {
     border: 1px solid slategray;
+    background-color: rgb(112, 128, 144);
 }
 #comment-del-btn {
     border: 1px solid #e23d31;
+    background-color: #e23d31;
 }
 
 .crud-btn p {
     font-size: 0.6rem;
-    color: black;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
 #commented-author-text {
@@ -345,7 +349,7 @@
     margin-left: 25px;
     color: #f85076;
     white-space: nowrap;
-    margin-top: 8px;
+    /* margin-top: 8px; */
 }
 
 /* ------------------------------------ */

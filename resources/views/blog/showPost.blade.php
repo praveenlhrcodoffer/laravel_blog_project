@@ -24,7 +24,7 @@
                 <div class="delete-btn">
                     <form id="delete-post-form" action="{{ route('post.delete', ['id' => $post->id]) }}" method="POST">
                         @csrf
-                        @method('DELETE')
+                        {{-- @method('DELETE') --}}
                         <button type="submit" onclick="return confirm('Are you sure you want to delete this post?')">
                             <p>
                                 Delete

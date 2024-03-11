@@ -75,9 +75,9 @@ class BlogController extends Controller
 
         // dd($req->all());
         $comment = Comment::find($req->comment_id);
-        $comment->comment =$req->update_comment;
+        $comment->comment = $req->update_comment;
         $comment->save();
-        return response()->json(['msg'=> 'comment edit success', 'data'=> $comment],200);
+        return response()->json(['msg' => 'comment edit success', 'data' => $comment], 200);
     }
 
     // --------------------------------------------------------------------------------------------------
@@ -131,10 +131,10 @@ class BlogController extends Controller
 
     // --------------------------------------------------------------------------------------------------
     //|> Delete
-    public function deletePostFromDb(string $id)
+    public function deletePostFromDb(Request $req)
     {
-        // dd($id);
-        $post = Post::find($id);
+        // dd($req->all());
+        $post = Post::find($req->id);
         $post->delete();
 
         // return view('blog.index'); //|> This would give error at blog.index page as view blog.index expects to receive some data to be explicitly pass in order to render properly

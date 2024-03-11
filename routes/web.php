@@ -8,6 +8,7 @@ use  App\Http\Controllers\LoginController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 
+
 //|> Routes for views
 Route::get('/', [BlogController::class, 'index'])->name('posts.home');
 Route::get('/search', [BlogController::class, 'searchPost'])->name('posts.search');
